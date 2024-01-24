@@ -5,6 +5,7 @@ const axios = require("axios");
 const ejs = require('ejs');
 
 const openWeatherApiKey = "38cd6323fab63e18234d6697723943cc";
+const
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +20,19 @@ app.listen(3000, function () {
 app.get('/index', function (req, res) {
   res.render('main', {city_name:city_name, weather:weather.toString()});
 })
+
+
+app.get('weather/layer/temp'){
+
+}
+
+axios.get(geoApiUrl)
+    .then(response => {
+
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error.message);
+    });
 
 
 app.get('/geo', function (req, res) {

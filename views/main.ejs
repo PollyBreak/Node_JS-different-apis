@@ -4,10 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 700px;}
+    </style>
 </head>
 <body>
 <h2>Welcome to the Main Page</h2>
 <h1><%=city_name  %></h1>
 <p><%= weather %></p>
+<div id="map"></div>
 </body>
 </html>
+<script>
+    // osm layer
+    var map = L.map('map').setView([51.1282205, 71.4306682], 13);
+    var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    osm.addTo(map);
+
+    //markers
+    var singleMarker = L.marker([51.1282205, 71.4306682]).addTo(map);
+    var popup = singleMarker.bindPopup('me');
+    popup.addTo(map);
+
+    //tile layer
+
+    // var temp = L.tileLayer('http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=38cd6323fab63e18234d6697723943cc', {
+    //     maxZoom: 18,
+    //     attribution: '&copy; <a href="http://owm.io">VANE</a>',
+    //     id: 'temp'
+    // });
+
+    // var temperatureLevel = L.tileLayer("https://tile.openweathermap.org/map/temp_new/0/1/1.png?appid=38cd6323fab63e18234d6697723943cc");
+    // var overlays = {"Temperature": temp};
+    // L.control.layers(overlays, null, {collapsed:false}).addTo(map);
+
+    // var layers = [];
+    // for (var providerId in providers) {
+    //     layers.push(providers[providerId]);
+    // }
+    //
+    // L.control.iconLayers(layers).addTo(map);
+    var providers = {};
+
+    // providers['OSM'] = {
+    //     title: 'OSM',
+    //     icon: 'img/layers-osm.png',
+    //     layer: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    //         maxZoom: 18,
+    //         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    //     })
+    // };
+
+    var temp = L.tileLayer('http://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=38cd6323fab63e18234d6697723943cc', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://owm.io">VANE</a>',
+            id: 'temp'
+        }),
+
+        precipitation = L.tileLayer('http://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=38cd6323fab63e18234d6697723943cc', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://owm.io">VANE</a>'
+        }),
+
+        wind = L.tileLayer('http://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=38cd6323fab63e18234d6697723943cc', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://owm.io">VANE</a>'
+        }),
+
+        pressure = L.tileLayer('http://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=38cd6323fab63e18234d6697723943cc', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://owm.io">VANE</a>'
+        }),
+
+
+        clouds = L.tileLayer('http://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=38cd6323fab63e18234d6697723943cc', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://owm.io">VANE</a>'
+        });
+
+
+    temp.addTo(map);
+
+    var overlays = {"Temperature": temp, "Precipitation": precipitation, "Clouds": clouds, "Pressure": pressure, "Wind": wind};
+    L.control.layers(overlays, null, {collapsed:false}).addTo(map);
+
+    // var layers = [];
+    // for (var providerId in providers) {
+    //     layers.push(providers[providerId]);
+    // }
+
+</script>
