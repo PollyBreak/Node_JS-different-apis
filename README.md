@@ -3,7 +3,7 @@
 This project is the implementation of the assignment 2 on Web Technologies. 
 It is a web page consisting of the back part (server) and the client part. 
 
-Stack: NodeJS (server), JS+html+CSS (client)
+Stack: NodeJS (server), JS+html+CSS (client).
 
 Api: OpenWeatherApi, Free Dictionary API, NewsApi
 
