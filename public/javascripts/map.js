@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', ()=> {
     /////////////////  MAP  ///////////////////
     // osm layer
-    var map = L.map('map').setView([51.1282205, 71.4306682],12);
+    var map = L.map('map').setView([51.1282205, 71.4306682],8);
     var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -117,6 +117,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     //////////// VALIDATION END////////////
     let city;
+    let cityName;
     let mapLat;
     let mapLon;
     let weather;
@@ -129,13 +130,15 @@ document.addEventListener('DOMContentLoaded', ()=> {
             fetch(url, {method:"GET"})
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.length === 0) { //if there is no city or region
                         console.log("no city");
+                        alert("There is no city or region with these coordinates");
                     } else {
                         city = data[0];
                         mapLat = city.lat;
                         mapLon = city.lon;
+                        cityName = city.name;
 
                         url = `http://localhost:3000/weather?lat=${lat}&lon=${lon}`;
                         fetch(url, {method:"GET"})
@@ -161,8 +164,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
                                                 <div style="width: 100%; display: flex; justify-content: center">
                                                 <img src=\"http://openweathermap.org/img/w/${imageId}.png\" alt=\"Weather Icon\">
                                             </div>
-                                            <div> 
-                                                <p style=\"\" >Country code:${weather.sys.country} <br> ${weather.weather[0].main} <br>
+                                            <div style="width: 100%; display: flex; justify-content: center; text-align: center"> 
+                                                <p style="text-align: center"> ${cityName} <br> Country code:${weather.sys.country}<br>
+                                                    <b> ${weather.weather[0].main}</b> <br>
                                                     Temperature: ${temp}°<br> Feels like: ${feelsLike}° 
                                                     <br> Humidity: ${weather.main.humidity} <br> Pressure: ${weather.main.pressure} <br> 
                                                     Wind speed: ${weather.wind.speed} ${rain3h} ${rain1h} </p> 
@@ -171,7 +175,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
 
                                 //// add info to map ////
-                                map.setView([mapLat, mapLon], 12);
+                                map.setView([mapLat, mapLon], 8);
                                 let newMarker = L.marker([mapLat, mapLon]).addTo(map);
                                 let popup = newMarker.bindPopup(popupHtml);
                                 newMarker.openPopup();
@@ -179,10 +183,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
                             })
                             .catch(err => console.error(err.message));
-
-
-
-
                     }
 
                 }).catch(err => console.error(err.message));
@@ -191,7 +191,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
             // let city = response.json();
             // console.log(city)
         };
-
 
 
 });

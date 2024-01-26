@@ -1,6 +1,23 @@
+body {
+    width: 96vw;
+    font-family: 'Century Gothic', sans-serif;
+}
+
+button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: lightcoral;
+    color: #fff;
+    margin-left: 10px;
+}
+
 #map {
     height: 400px;
-    width: 700px;}
+    width: 80vw;
+}
 
 .scale-dividers,.scale-gradient {
     display: -webkit-box;
@@ -50,3 +67,63 @@
     text-align: center
 }
 
+.news-item {
+    width: 20%;
+    padding: 10px;
+}
+
+#news-container {
+    justify-content: center;
+    display: flex;
+}
+
+#show-more {
+    display: none;
+}
+
+
+
+.def-div {
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    word-break: break-word;
+    max-width:70vw;
+}
+
+.def-div p {
+    margin: 0px;
+}
+
+.inner-container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#city-form {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+.title {
+    text-align: center;
+    color: lightcoral;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#news-div {
+    margin-left: 10%;
+}

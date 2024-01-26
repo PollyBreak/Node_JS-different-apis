@@ -8,23 +8,27 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link rel="stylesheet" href="/static/stylesheets/styles.css">
     <script src="/static/javascripts/map.js"></script>
-    <script src="/static/javascripts/form-validation.js"></script>
+    <script src="/static/javascripts/dictionary.js"></script>
+    <script src="/static/javascripts/news.js"></script>
 </head>
     <body>
-        <h2>Welcome to the Main Page</h2>
+        <h1 class="title">Welcome to my website</h1>
+
 <!--        <h1><%=city_name  %></h1>-->
 <!--        <p><%= weather %></p>-->
 
+    <div class="wrapper">
         <form id="city-form">
+            <h3> Find the city and its weather by coordinates</h3>
             <label for="lat">Latitude</label>
-            <input type="text" id="lat" data-reg="^-?([0-8]?[0-9]|90)(\.\d{1,10})?$"> <p id="latError" class="error">Only float numbers</p>
-
+            <input type="text" id="lat" data-reg="^-?([0-8]?[0-9]|90)(\.\d{1,10})?$"> <p id="latError" class="error"><i>Latitude is specified in the range [-90, 90]</i></p>
             <label for="lon">Longitude</label>
-            <input type="text" id="lon" data-reg="^-?((1[0-7][0-9])|([0-9]?[0-9])|180)(\.\d{1,10})?$"> <p id="lonError" class="error">Only float numbers</p>
-
-            <button type="submit">find</button>
+            <input type="text" id="lon" data-reg="^-?((1[0-7][0-9])|([0-9]?[0-9])|180)(\.\d{1,10})?$"> <p id="lonError" class="error"><i>Longitude is specified in the range [-180, 180]</i></p>
+            <button type="submit">Find</button>
         </form>
 
+
+        <br>
 
         <div id="map"></div>
         <div class="scale-gradient" style="width: 260px;">
@@ -41,15 +45,63 @@
             </div>
         </div>
 
+        <br>
 
-<!--        <div class="weather-icon">-->
-<!--            <img alt="Weather Icon">-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <p style="" >Country code: <br> Description <br>-->
-<!--                Temperature: <br> Feels like: <br> Humidity: <br> Pressure: <br>-->
-<!--                Wind speed: <br> Rain volume for the last 3 hours: <br> </p>-->
-<!--        </div>-->
+        <!-------------------     DICTIONARY   ------------------------>
+        <form>
+            <h2>Explanatory dictionary</h2>
+            <label for="word">Enter some word:</label>
+            <input type="text" id="word">
+            <button id="searchButton">Search</button>
+        </form>
+        <div id="dictionary-word-div">
+
+        </div>
+    </div>
+
+        <!-------------------         NEWS   ------------------------>
+        <div id="news-div">
+            <h2>Searching news</h2>
+            <form id="news-form">
+                <div id="news-input">
+                    <label for="title-search">Search by title:</label>
+                    <input type="text" id="title-search">
+                    <button id="newsButton">Search</button>
+                </div>
+
+                <br>
+
+                <div class="radio-buttons">
+                    <p class="p-radio"><b>Period</b>:</p>
+                    <input type="radio" id="24h" name="period" value="1">
+                    <label for="24h" class="radio-label">24 hours</label><br>
+                    <input type="radio" id="days3" name="period" value="3">
+                    <label for="days3" class="radio-label">3 days</label><br>
+                    <input type="radio" id="week" name="period" value="7" checked>
+                    <label for="week" class="radio-label">7 days</label><br>
+
+                    <p class="p-radio"><b>Sort:</b></p>
+                    <input type="radio" id="relevancy" name="sort" value="relevancy">
+                    <label for="relevancy">Relevancy</label><br>
+                    <input type="radio" id="popularity" name="sort" value="popularity">
+                    <label for="popularity">Popularity</label><br>
+                    <input type="radio" id="newness" name="sort" value="newness" checked>
+                    <label for="newness">Newness</label><br>
+
+                    <p class="p-radio"><b>Language:</b></p>
+                    <input type="radio" id="en" name="lang" value="en" checked>
+                    <label for="en">English</label><br>
+                    <input type="radio" id="ru" name="lang" value="ru">
+                    <label for="ru">Russian</label><br>
+                </div>
+            </form>
+
+            <p id="amount"></p>
+            <div id="news-container">
+
+            </div>
+            <button id="show-more">Show more</button>
+        </div>
 
     </body>
 </html>

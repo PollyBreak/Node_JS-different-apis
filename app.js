@@ -6,9 +6,12 @@ const ejs = require('ejs');
 const {response} = require("express");
 
 
+
+
 let weather;
 
 const openWeatherApiKey = "38cd6323fab63e18234d6697723943cc";
+const newsApiKey = "23a71424284d4bedbe4e470123cdf63f";
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -67,6 +70,48 @@ app.get('/weather', function (req, res) {
         })
     }
 })
+
+app.get("/dictionary", function (req, res) {
+    const word = req.query.word;
+    if(word) {
+        const dictionaryUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`; //FreeDictionaryApi
+        axios.get(dictionaryUrl).then( response => {
+            res.send(response.data);
+        }). catch(error => {
+            res.send({doesnt_exist: "true"});
+        })
+    }
+})
+
+app.get("/news", function (req, res) {
+    const title = req.query.title;
+    const sortBy = req.query.sortBy;
+    const from = req.query.from;
+    const language = req.query.language;
+    let page = req.query.page;
+    if (!page) {
+        page = 1;
+    }
+
+    if (title) {
+        const url = "https://newsapi.org/v2/everything";
+        axios.get(url, {params: {q:title,
+                                        apiKey:newsApiKey,
+                                        pageSize:4,
+                                        page:page,
+                                        sortBy:sortBy,
+                                        from:from,
+                                        language:language
+                            }}).then( response => {
+            res.send(response.data);
+        }). catch(error => {
+            res.send(error.message);
+        })
+    }
+
+})
+
+
 
 const city_name="Astana";
 const limit = 1;
